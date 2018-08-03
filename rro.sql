@@ -42,3 +42,19 @@ VALUES
 ('Alisa', 'Kepler', '4', 'female', '1'),
 ('Anna', 'Madavie', '2', 'female', '7')
 ;
+
+--1) сколько всего студентов приехало к нам учиться
+SELECT COUNT(StudentID) FROM Students;
+-- выводит количество студентов
+
+--1.1) сколько всего городов
+SELECT COUNT(CityID) FROM Cities;
+-- выводит количество городов
+
+--1.3) список всех студентов
+SELECT * FROM Students;
+-- список всех студенов
+
+--1.4) список всех стран
+SELECT DISTINCT Country FROM Cities;
+-- выводит четыре страны
