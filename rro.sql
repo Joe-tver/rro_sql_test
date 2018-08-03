@@ -95,3 +95,16 @@ WHERE StudentID = (
     SELECT StudentID
     WHERE FirstName = 'Peter' AND LastName = 'Zimmer');
 -- это я переделал, так как будто мы не знаем ID студента, а знаем только его ФИО
+
+--6) необходимо удалить записи обо всех студентках-девушках из Германии, т.к. им не дали разрешение на обучение у нас
+SET SQL_SAFE_UPDATES = 0; -- вот тут я не смог разобраться сможет ли этот запрос сработать без сейфмода
+
+DELETE Students
+FROM University.Students
+INNER JOIN University.Cities ON Cities.CityID = Students.CityID
+WHERE Country = 'Germany' AND Gender = 'female'
+-- Удаляется Alice Kepler
+
+--6.1) тоже самое только по другому
+DELETE FROM Students WHERE Gender = 'female' AND CityID IN (SELECT CityID FROM Cities WHERE Country='Germany')
+-- Удаляется Alice Kepler
