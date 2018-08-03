@@ -58,3 +58,9 @@ SELECT * FROM Students;
 --1.4) список всех стран
 SELECT DISTINCT Country FROM Cities;
 -- выводит четыре страны
+
+--2) сколько студенток-девочек приехало учиться и на каких они курсах
+SELECT COUNT(StudentsID) FROM Students WHERE Gender = 'female';
+-- количество девочек студенток
+SELECT FirstName, LastName, NumberOfCourse FROM Students WHERE Gender = 'female';
+-- список девочек студенток
