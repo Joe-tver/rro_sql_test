@@ -102,9 +102,28 @@ SET SQL_SAFE_UPDATES = 0; -- вот тут я не смог разобратьс
 DELETE Students
 FROM University.Students
 INNER JOIN University.Cities ON Cities.CityID = Students.CityID
-WHERE Country = 'Germany' AND Gender = 'female'
+WHERE Country = 'Germany' AND Gender = 'female';
 -- Удаляется Alice Kepler
 
 --6.1) тоже самое только по другому
-DELETE FROM Students WHERE Gender = 'female' AND CityID IN (SELECT CityID FROM Cities WHERE Country='Germany')
+DELETE FROM Students WHERE Gender = 'female' AND CityID IN (SELECT CityID FROM Cities WHERE Country='Germany');
 -- Удаляется Alice Kepler
+
+
+--7) всем студентам необходимо добавить данные об отметке об успешном освоении нашего курса,
+-- по-умолчанию у всех курс не освоен, кроме студентов 4-го курса из Германии
+SET SQL_SAFE_UPDATES = 0;
+
+-- добавляем колонку финиш
+ALTER TABLE Students
+ADD 'Finish' boolean;
+
+-- студентам из германии коротые на 4-ом курсе поставить отметку о завершении курса
+UPDATE Students
+SET Finish = 'true'
+WHERE NumberOfCourse = 4 AND CityID IN (SELECT CityID FROM Cities WHERE Country = 'Germany');
+
+-- студентам не из Германии и ниже 4-ого курса ставим отметку о завершении
+UPDATE Students
+SET Finish = 'false'
+WHERE NumberOfCourse < 4 AND CityID IN (SELECT CityID FROM Cities WHERE NOT Country = 'Germany');
