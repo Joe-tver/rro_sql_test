@@ -81,3 +81,17 @@ WHERE Cities.Country = 'Germany';
 
 --4) сколько студентов младше четвертого курса у нас обучаются (не включая сам 4 курс)
 SELECT * FROM University.Students WHERE NumberOfCourse < 4;
+
+--5) необходимо перевести Anna Madavie со 2 на 3 курс, а Peter Zimmer за неуспеваемость на второй курс
+UPDATE University.Students
+SET NumberOfCourse = '3'
+WHERE StudentID = (
+  SELECT StudentID
+  WHERE FirstName = 'Anna' AND LastName = 'Madavie');
+
+  UPDATE University.Students
+  SET NumberOfCourse = '2'
+  WHERE StudentID = (
+    SELECT StudentID
+    WHERE FirstName = 'Peter' AND LastName = 'Zimmer');
+-- это я переделал, так как будто мы не знаем ID студента, а знаем только его ФИО
