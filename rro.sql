@@ -78,3 +78,6 @@ FROM University.Cities
 INNER JOIN University.Students ON Cities.CityID = Students.CityID
 WHERE Cities.Country = 'Germany';
 -- выводит число 4
+
+--4) сколько студентов младше четвертого курса у нас обучаются (не включая сам 4 курс)
+SELECT * FROM University.Students WHERE NumberOfCourse < 4;
