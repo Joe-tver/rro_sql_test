@@ -64,3 +64,17 @@ SELECT COUNT(StudentsID) FROM Students WHERE Gender = 'female';
 -- количество девочек студенток
 SELECT FirstName, LastName, NumberOfCourse FROM Students WHERE Gender = 'female';
 -- список девочек студенток
+
+--3) сколько студентов приехало учиться из Германии
+SELECT Cities.Country, Students.FirstName, Students.LastName
+FROM University.Cities
+INNER JOIN University.Students ON Cities.CityID = Students.CityID
+WHERE Cities.Country = 'Germany';
+-- выводит список студентов где первый столбец страна, второй столбец имя, третий фамилия
+
+-- если хотим вычислить только количество данных студентов
+SELECT COUNT(Students.StudentID)
+FROM University.Cities
+INNER JOIN University.Students ON Cities.CityID = Students.CityID
+WHERE Cities.Country = 'Germany';
+-- выводит число 4
