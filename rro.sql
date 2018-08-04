@@ -89,11 +89,11 @@ WHERE StudentID = (
   SELECT StudentID
   WHERE FirstName = 'Anna' AND LastName = 'Madavie');
 
-  UPDATE University.Students
-  SET NumberOfCourse = '2'
-  WHERE StudentID = (
-    SELECT StudentID
-    WHERE FirstName = 'Peter' AND LastName = 'Zimmer');
+UPDATE University.Students
+SET NumberOfCourse = '2'
+WHERE StudentID = (
+  SELECT StudentID
+  WHERE FirstName = 'Peter' AND LastName = 'Zimmer');
 -- это я переделал, так как будто мы не знаем ID студента, а знаем только его ФИО
 
 --6) необходимо удалить записи обо всех студентках-девушках из Германии, т.к. им не дали разрешение на обучение у нас
@@ -116,14 +116,18 @@ SET SQL_SAFE_UPDATES = 0;
 
 -- добавляем колонку финиш
 ALTER TABLE Students
-ADD 'Finish' boolean;
+ADD Finish boolean;
+-- Не раотает в кавычках у меня!!!
 
 -- студентам из германии коротые на 4-ом курсе поставить отметку о завершении курса
 UPDATE Students
-SET Finish = 'true'
+SET Finish = true
 WHERE NumberOfCourse = 4 AND CityID IN (SELECT CityID FROM Cities WHERE Country = 'Germany');
+--не рабоатет без сейфмоде, так как идет изменение сразу нескольких записей одновременно
+
 
 -- студентам не из Германии и ниже 4-ого курса ставим отметку о завершении
 UPDATE Students
-SET Finish = 'false'
+SET Finish = false
 WHERE NumberOfCourse < 4 AND CityID IN (SELECT CityID FROM Cities WHERE NOT Country = 'Germany');
+--не рабоатет без сейфмоде, так как идет изменение сразу нескольких записей одновременно
